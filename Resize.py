@@ -7,10 +7,9 @@ try:
         for line in content:
             list = content.read().splitlines()
 
-    picture = input('Enter picture name (Include picture extension): ')
     for value in list:
         size = int(value)
-        img = Image.open(picture)
+        img = Image.open('bookmarq.png')
 
         if size > 512:
             print("Warning: " + value + " will decrease in quality!")
