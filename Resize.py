@@ -1,24 +1,29 @@
 from PIL import Image
 import os
 
+# 512 here
+
 try:
-    list = []
-    text = input("Enter text file containing sizes: ")
-    with open(text, "r") as content:
-        for line in content:
-            list = content.read().splitlines()
+    sizes = []
+    sizesFilename = input("Enter text file containing sizes: ")
+    with open(sizesFilename, "r") as sizesContent:
+        for line in sizesContent:
+            # TODO: split the train wreck
+            sizes = sizesContent.read().splitlines()
 
-    picture = input('Enter picture name: ')
-    folder = input("Enter folder name that will contain new images: ")
-    for value in list:
-        size = int(value)
-        img = Image.open(picture)
+    iconFilename = input('Enter icon name: ')
+    ouputFolderName = input("Enter folder name that will contain new icons: ")
 
-        if size > 512:
-            print("Warning: " + value + " will decrease in quality!")
 
-        im = img.resize((size, size), Image.ANTIALIAS)
-        im.save(os.path.join(folder, value + ".png"))
+    rawIcon = Image.open(iconFilename)
+    for size in sizes:
+        size = int(size)
+
+        if size > 512: #find out the input image's dimensions. And use that in place of '512'
+            print("Warning: " + size + " will decrease in quality!")
+
+        resizedIcon = rawIcon.resize((size, size), Image.ANTIALIAS)
+        resizedIcon.save(os.path.join(ouputFolderName, size + ".png"))
 
 except Exception as e:
     print(e)
